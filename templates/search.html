@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+    <style>
+        /* Add any necessary styles for the pop-up window */
+    </style>
+</head>
+<body>
+    <h2>Search for Client</h2>
+    <form method="POST" action="{{ url_for('search_results') }}">
+        <input type="text" name="client_id" placeholder="Client ID" required>
+        <button type="submit">Search</button>
+        {% if not_found_message %}
+            <a href="{{ url_for('add_client') }}">
+                <button type="button">Enter client data</button>
+            </a>
+        {% endif %}
+        
+    </form>
+</body>
+</html>

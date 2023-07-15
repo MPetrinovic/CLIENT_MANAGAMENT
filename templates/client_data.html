@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Client Data</h2>
+    <table>
+        <tr>
+            <th>Attribute</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ client['name'] }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ client['email'] }}</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>{{ client['phone'] }}</td>
+        </tr>
+    </table>
+</body>
+</html>
