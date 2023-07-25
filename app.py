@@ -7,20 +7,6 @@ app = Flask(__name__)
 VALID_USERNAME = "admin"
 VALID_PASSWORD = "admin"
 
-# Dummy client data for demonstration purposes
-CLIENT_DATA = {
-    "1": {
-        "name": "John Doe",
-        "email": "john@example.com",
-        "phone": "1234567890"
-    },
-    "2": {
-        "name": "Jane Smith",
-        "email": "jane@example.com",
-        "phone": "9876543210"
-    }
-}
-
 @app.route('/', methods=['GET', 'POST'])
 def login():
     error_message = None  # Initialize error message
@@ -38,8 +24,6 @@ def login():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search_results():
-
-
     if request.method == 'POST':
         client_id = request.form['client_id']
         client_data = get_client_data(client_id)
