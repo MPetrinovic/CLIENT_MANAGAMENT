@@ -8,8 +8,8 @@
     <h2>Client Data</h2>
     <table>
         <tr>
-            <th>Attribute</th>
-            <th>Value</th>
+            <th class="table-header">Attribute</th>
+            <th class="table-header">Value</th>
         </tr>
         <tr>
             <td>Name</td>
@@ -24,5 +24,10 @@
             <td>{{ client['phone'] }}</td>
         </tr>
     </table>
+
+    <a href="{{ url_for('search_results') }}" class="back-button">
+        <button type="button">Back to Search</button>
+    </a>
+
 </body>
 </html>

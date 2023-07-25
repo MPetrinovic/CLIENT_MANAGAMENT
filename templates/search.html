@@ -59,6 +59,9 @@
             <a href="{{ url_for('add_client') }}">
                 <button type="button">Enter client data</button>
             </a>
+            {% if not_found_message %}
+                <p class="error-message">{{ not_found_message }}</p>
+            {% endif %}
     </form>
 </body>
 </html>

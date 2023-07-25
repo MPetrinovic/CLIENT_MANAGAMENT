@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from DB_operation import get_client_data, add_client_data
 
 app = Flask(__name__)
 
@@ -37,20 +38,23 @@ def login():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search_results():
+
+
     if request.method == 'POST':
         client_id = request.form['client_id']
-        if client_id in CLIENT_DATA:
+        client_data = get_client_data(client_id)
+        if client_data:
             return redirect(url_for('client_data', client_id=client_id))
         else:
             return render_template('search.html', not_found_message="Client not found")
 
-    return render_template('search.html')
+    return render_template('search.html', not_found_message=None)
 
 @app.route('/client/<client_id>', methods=['GET'])
 def client_data(client_id):
-    if client_id in CLIENT_DATA:
-        data = CLIENT_DATA[client_id]
-        return render_template('client_data.html', client=data)
+    client_data = get_client_data(client_id)
+    if client_data:
+        return render_template('client_data.html', client=client_data)
     else:
         return "Client not found"
 
@@ -61,10 +65,8 @@ def add_client():
         email = request.form['email']
         phone = request.form['phone']
 
-        new_client_id = str(len(CLIENT_DATA) + 1)
-        CLIENT_DATA[new_client_id] = {"name": name, "email": email, "phone": phone}
-
-        return redirect(url_for('client_data', client_id=new_client_id))
+        client_id = add_client_data(name, email, phone)
+        return redirect(url_for('client_data', client_id=client_id))
 
     return render_template('add_client.html')
 
