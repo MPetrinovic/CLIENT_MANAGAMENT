@@ -50,6 +50,14 @@ input[type="submit"] {
     border-radius: 3px;
   }
   
+  input[type="email"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
 .error-message {
     color: #ff0000;
   }

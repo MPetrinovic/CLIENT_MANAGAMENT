@@ -3,6 +3,51 @@
 <head>
     <title>Search</title>
     <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            margin-right: 10px;
+        }
+
+        .error-message {
+            color: #ff0000;
+        }
+
         /* Add any necessary styles for the pop-up window */
     </style>
 </head>
@@ -11,12 +56,9 @@
     <form method="POST" action="{{ url_for('search_results') }}">
         <input type="text" name="client_id" placeholder="Client ID" required>
         <button type="submit">Search</button>
-        {% if not_found_message %}
             <a href="{{ url_for('add_client') }}">
                 <button type="button">Enter client data</button>
             </a>
-        {% endif %}
-        
     </form>
 </body>
 </html>
