@@ -1,37 +1,43 @@
-import sqlite3
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///clients.db')
+Base = declarative_base()
+Session = sessionmaker(bind=engine)
+
+class Client(Base):
+    __tablename__ = 'clients'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    email = Column(String)
+    phone = Column(String)
+
+Base.metadate.creat_all(engine)
 
 def get_client_data(client_id):
-    conn = sqlite3.connect('clients.db')  # Change the database name if needed
-    cursor = conn.cursor()
-
-    # Execute the SQL query to fetch the client data by client_id
-    cursor.execute("SELECT * FROM clients WHERE id=?", (client_id,))
-    client_data = cursor.fetchone()
-
-    cursor.close()
-    conn.close()
+    session = Session()
+    client_data = session.query(Client).filter_by(id=client_id).first()
+    session.close()
 
     if client_data:
         return {
-            "id": client_data[0],
-            "name": client_data[1],
-            "email": client_data[2],
-            "phone": client_data[3]
+            "id": client_data.id,
+            "name": client_data.name,
+            "email": client_data.email,
+            "phone": client_data.phone
         }
     else:
         return None
     
 
 def add_client_data(name, email, phone):
-    conn = sqlite3.connect('clients.db')  # Change the database name if needed
-    cursor = conn.cursor()
+    session = Session()
+    new_client = Client(name=name, email=email, phone=phone)
+    session.add(new_client)
+    session.commit()
+    client_id = new_client.id
+    session.close()
 
-    # Execute the SQL query to insert a new client data and retrieve the autoincremented id
-    cursor.execute("INSERT INTO clients (name, email, phone) VALUES (?, ?, ?)", (name, email, phone))
-    client_id = cursor.lastrowid
-
-    conn.commit()
-    cursor.close()
-    conn.close()
-
-    return client_id
+    return client_id 
